@@ -91,16 +91,25 @@ header nav ul li a.active { /* Classe 'active' para o link da seção visível *
     background-color: #fff;
     margin-bottom: 20px;
     border-bottom: 1px solid #eee;
-    opacity: 1; /* Padrão */
+    
+    /* Estilos para a transição */
+    opacity: 1;
+    height: auto;
+    transform: translateY(0);
+    overflow: visible;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, height 0.5s ease-in-out, padding 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
-    transform: translateY(0); /* Padrão */
 }
 
 .content-section:nth-of-type(even) { /* Estilo alternado para seções */
     background-color: #f9f9f9;
 }
 
-/* Classe .hidden para esconder seções */
+/*
+ * CORREÇÃO PRINCIPAL:
+ * A classe .hidden NÃO DEVE ter 'display: none;', pois isso
+ * quebra as animações de transição.
+ * Usamos opacity, height, padding e margin para "esconder" a seção.
+ */
 .content-section.hidden,
 .hidden {
     opacity: 0;
@@ -110,12 +119,6 @@ header nav ul li a.active { /* Classe 'active' para o link da seção visível *
     padding-bottom: 0;
     margin-bottom: 0;
     transform: translateY(20px); /* Move levemente para baixo ao desaparecer */
-    display: none; /* Garante que está oculto */
-}
-
-/* Re-exibindo a seção */
-.content-section:not(.hidden) {
-    display: block; /* Garante que é exibido */
 }
 
 
@@ -310,6 +313,11 @@ footer {
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
+/* Oculta o container do quiz quando .hidden está presente */
+#quiz-container.hidden {
+    display: none;
+}
+
 #quiz-header {
     display: flex;
     justify-content: flex-end;
@@ -384,6 +392,16 @@ footer {
     font-size: 1.1rem;
     font-weight: bold;
     min-height: 25px; /* Evita que o layout "pule" */
+    line-height: 1.4;
+}
+
+/* Estilo para o parágrafo de explicação */
+.quiz-explanation {
+    font-size: 1rem;
+    font-weight: normal; /* Texto normal, não negrito */
+    color: #333; /* Cor de texto padrão */
+    margin-top: 10px; /* Espaçamento */
+    margin-bottom: 0;
 }
 
 #next-btn {
